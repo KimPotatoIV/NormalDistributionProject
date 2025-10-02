@@ -12,11 +12,12 @@ const DEVIATION: float = 15.0
 var distribution_array: Array = []
 
 func _ready() -> void:
-	for i in range(SECTION_COUNT):
-		distribution_array.append(0)
+	_reset_distribution_array()
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
+		_reset_distribution_array()
+		
 		for i in range(DISTRIBUTION_COUNT):
 			var value: float = MathManager.get_ndn(MIN_VALUE, MAX_VALUE, DEVIATION)
 			var value_to_int: int = round(value)
@@ -58,3 +59,9 @@ func _draw() -> void:
 		draw_line(Vector2(i * bar_width + bar_width / 2, max_height - bar_height), \
 					Vector2((i + 1) * bar_width + bar_width / 2, \
 					max_height - next_bar_height), Color.YELLOW, 10.0)
+
+func _reset_distribution_array() -> void:
+	distribution_array.clear()
+	
+	for i in range(SECTION_COUNT):
+		distribution_array.append(0)
